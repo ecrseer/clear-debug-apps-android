@@ -7,15 +7,14 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class AppParaDeletarViewModel : ViewModel() {
     // TODO: Implement the ViewModel
     val appsParaSeremDeletados = MutableLiveData<MutableList<ApplicationInfo>>()
     val todosOsApps = MutableLiveData<MutableList<ApplicationInfo>>()
+
     fun buscaPorAppsDebug(resolveInfoList:List<ResolveInfo>){
         try {
             val apps= mutableListOf<ApplicationInfo>()
-            val intent = Intent(Intent.ACTION_MAIN, null)
-            intent.addCategory(Intent.CATEGORY_LAUNCHER)
 
             for (resolveInfo in resolveInfoList) {
                 val flags = resolveInfo.activityInfo.applicationInfo.flags
@@ -23,7 +22,6 @@ class MainViewModel : ViewModel() {
                 if(isDebuggable){
                     apps.add(resolveInfo.activityInfo.applicationInfo)
                 }
-
             }
             todosOsApps.postValue(apps)
 
@@ -31,6 +29,7 @@ class MainViewModel : ViewModel() {
             e.printStackTrace()
         }
     }
+
 
 
 
